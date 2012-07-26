@@ -360,14 +360,8 @@ public class CallController extends Handler {
             if (VDBG) log("- got Phone instance: " + phone + ", class = " + phone.getClass());
 
             // update okToCallStatus based on new phone
-            if (phone.getServiceState() != null) {
-                okToCallStatus = checkIfOkToInitiateOutgoingCall(
-                        phone.getServiceState().getState());
-            }
-            else {
-                log(">>>> phone.getServiceState == NULL, setting CallStatusCode.OUT_OF_SERVICE");
-                return CallStatusCode.OUT_OF_SERVICE;
-            }
+            okToCallStatus = checkIfOkToInitiateOutgoingCall(
+                    phone.getServiceState().getState());
 
         } catch (PhoneUtils.VoiceMailNumberMissingException ex) {
             // If the call status is NOT in an acceptable state, it
