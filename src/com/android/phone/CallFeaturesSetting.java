@@ -170,6 +170,7 @@ public class CallFeaturesSetting extends PreferenceActivity
     private static final String BUTTON_TTY_KEY         = "button_tty_mode_key";
     /* package */ static final String BUTTON_RING_DELAY_KEY = "button_ring_delay_key";
     private static final String BUTTON_HAC_KEY         = "button_hac_key";
+    private static final String BUTTON_NOISE_SUPPRESSION_KEY = "button_noise_suppression_key";
 
     private static final String BUTTON_GSM_UMTS_OPTIONS = "button_gsm_more_expand_key";
     private static final String BUTTON_CDMA_OPTIONS = "button_cdma_more_expand_key";
@@ -258,6 +259,7 @@ public class CallFeaturesSetting extends PreferenceActivity
     private ListPreference mButtonDTMF;
     private ListPreference mButtonTTY;
     private ListPreference mButtonRingDelay;
+    private CheckBoxPreference mButtonNoiseSuppression;
     private ListPreference mButtonSipCallOptions;
     private ListPreference mVoicemailProviders;
     private PreferenceScreen mVoicemailSettings;
@@ -474,7 +476,14 @@ public class CallFeaturesSetting extends PreferenceActivity
             return true;
         } else if (preference == mButtonTTY) {
             return true;
+
         } else if (preference == mButtonRingDelay) {
+			return true;
+        } else if (preference == mButtonNoiseSuppression) {
+            int nsp = mButtonNoiseSuppression.isChecked() ? 1 : 0;
+            // Update Noise suppression value in Settings database
+            Settings.System.putInt(mPhone.getContext().getContentResolver(),
+                    Settings.System.NOISE_SUPPRESSION, nsp);
             return true;
         } else if (preference == mButtonAutoRetry) {
             android.provider.Settings.System.putInt(mPhone.getContext().getContentResolver(),
@@ -1511,6 +1520,7 @@ public class CallFeaturesSetting extends PreferenceActivity
         mButtonHAC = (CheckBoxPreference) findPreference(BUTTON_HAC_KEY);
         mButtonTTY = (ListPreference) findPreference(BUTTON_TTY_KEY);
         mButtonRingDelay = (ListPreference) findPreference(BUTTON_RING_DELAY_KEY);
+        mButtonNoiseSuppression = (CheckBoxPreference) findPreference(BUTTON_NOISE_SUPPRESSION_KEY);
         mVoicemailProviders = (ListPreference) findPreference(BUTTON_VOICEMAIL_PROVIDER_KEY);
         if (mVoicemailProviders != null) {
             mVoicemailProviders.setOnPreferenceChangeListener(this);
@@ -1580,6 +1590,15 @@ public class CallFeaturesSetting extends PreferenceActivity
             } else {
                 prefSet.removePreference(mButtonRingDelay);
                 mButtonRingDelay = null;
+            }
+        }
+        
+        if (mButtonNoiseSuppression != null) {
+            if (getResources().getBoolean(R.bool.has_in_call_noise_suppression)) {
+                mButtonNoiseSuppression.setOnPreferenceChangeListener(this);
+            } else {
+                prefSet.removePreference(mButtonNoiseSuppression);
+                mButtonNoiseSuppression = null;
             }
         }
 
@@ -1764,6 +1783,11 @@ public class CallFeaturesSetting extends PreferenceActivity
             if (mPrefEntry != null) {
                 mButtonRingDelay.setSummary(mPrefEntry);
             }
+        }
+   
+        if (mButtonNoiseSuppression != null) {
+            int nsp = Settings.System.getInt(getContentResolver(), Settings.System.NOISE_SUPPRESSION, 1);
+            mButtonNoiseSuppression.setChecked(nsp != 0);
         }
 
         lookupRingtoneName();
