@@ -16,12 +16,14 @@
 
 package com.android.phone;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.provider.Settings;
 import android.os.Handler;
 import android.os.IPowerManager;
 import android.os.Looper;
@@ -61,14 +63,17 @@ public class Ringer {
 
     Ringtone mRingtone;
     Vibrator mVibrator;
+    AudioManager mAudioManager;
     IPowerManager mPowerManager;
     volatile boolean mContinueVibrating;
     VibratorThread mVibratorThread;
     Context mContext;
     private Worker mRingThread;
+    private Handler mHandler;
     private Handler mRingHandler;
     private long mFirstRingEventTime = -1;
     private long mFirstRingStartTime = -1;
+    private int mRingerVolumeSetting = -1;
 
     /**
      * Initialize the singleton Ringer instance.
@@ -88,6 +93,7 @@ public class Ringer {
     /** Private constructor; @see init() */
     private Ringer(Context context) {
         mContext = context;
+        mAudioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
         mPowerManager = IPowerManager.Stub.asInterface(ServiceManager.getService(Context.POWER_SERVICE));
         // We don't rely on getSystemService(Context.VIBRATOR_SERVICE) to make sure this
         // vibrator object will be isolated from others.
@@ -168,10 +174,9 @@ public class Ringer {
                 if (DBG) log("- starting vibrator...");
                 mVibratorThread.start();
             }
-            AudioManager audioManager =
-                    (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
 
-            if (audioManager.getStreamVolume(AudioManager.STREAM_RING) == 0 || inQuietHours()) {
+            int ringerVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_RING);
+            if (ringerVolume == 0 && mRingerVolumeSetting <= 0) {
                 if (DBG) log("skipping ring because volume is zero");
                 return;
             }
@@ -358,28 +363,5 @@ public class Ringer {
 
     private static void log(String msg) {
         Log.d(LOG_TAG, msg);
-    }
-    
-    private boolean inQuietHours() {
-        boolean quietHoursEnabled = Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.QUIET_HOURS_ENABLED, 0) != 0;
-        int quietHoursStart = Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.QUIET_HOURS_START, 0);
-        int quietHoursEnd = Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.QUIET_HOURS_END, 0);
-        boolean quietHoursRinger = Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.QUIET_HOURS_RINGER, 0) != 0;
-        if (quietHoursEnabled && quietHoursRinger && (quietHoursStart != quietHoursEnd)) {
-            // Get the date in "quiet hours" format.
-            Calendar calendar = Calendar.getInstance();
-            int minutes = calendar.get(Calendar.HOUR_OF_DAY) * 60 + calendar.get(Calendar.MINUTE);
-            if (quietHoursEnd < quietHoursStart) {
-                // Starts at night, ends in the morning.
-                return (minutes > quietHoursStart) || (minutes < quietHoursEnd);
-            } else {
-                return (minutes > quietHoursStart) && (minutes < quietHoursEnd);
-            }
-        }
-        return false;
     }
 }
