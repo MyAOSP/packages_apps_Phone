@@ -623,4 +623,12 @@
     <string name="preference_category_ringtone" msgid="9007490591910078324">"Vyzvánění"</string>
     <string name="perm_change_mobile_network">Změnit typ sítě (2G/3G)</string>
     <string name="perm_change_mobile_network_desc">Aplikace s tímto oprávněním může kdykoliv změnit mezi 2G data a 3G data. 3G je rychlejší, ale náročnější na využití baterie a také může stát více peněz.</string>
+  <string name="ring_delay_title">Opožděné vyzvánění</string>
+  <string name="ring_delay_summary">Nastavit zpoždění vyzvánění</string>
+  <string-array name="ring_delay_entries">
+    <item>Zpoždění vypnuto</item>
+    <item>3 sekundy</item>
+    <item>6 sekund</item>
+    <item>9 sekund</item>
+  </string-array>
 </resources>
