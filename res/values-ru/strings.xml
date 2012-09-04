@@ -627,4 +627,25 @@
     <!-- Dialer UI Settings -->
     <string name="dialer_ui_settings_title">Настройки кнопок</string>
     <string name="dialer_ui_settings_summary">Настройки номеронабирателя</string>
+
+    <string name="perm_change_mobile_network">Изменение сети (2G/3G)</string>
+    <string name="perm_change_mobile_network_desc">Приложение, имеющее данное разрешение, может в любое время переключать режимы связи между 2G и 3G. Режим 3G имеет более высокую скорость и большее потребление энергии.</string>
+
+    <!-- Noise suppression -->
+    <string name="noise_suppression_title">Шумоподавление</string>
+    <string name="noise_suppression_summary">Включить шумоподавление в телефонных разговорах</string>
+
+    <string name="phone_number_label">Мой номер телефона</string>
+    <string name="phone_number_summary">Установка номера телефона для этого устройства</string>
+
+    <!-- Advanced Phone Settings -->
+    <string name="advanced_setting">Дополнительные настройки</string>
+    <string name="vibrate_outgoing">Вибрировать при ответе</string>
+    <string name="vibrate_outgoing_sum">Вибрировать когда на звонок отвечают</string>
+    <string name="vibrate_45">Вибрировать каждые 45с</string>
+    <string name="vibrate_45_sum">Вибрировать каждые 45 секунд в течении исходящего звонка</string>
+    <string name="vibrate_hangup">Вибрировать при отбое</string>
+    <string name="vibrate_hangup_sum">Вибрировать когда разговор окончен</string>
+    <string name="vibrate_call_waiting">Вибрировать при ожидании</string>
+    <string name="vibrate_call_waiting_sum">Вибрировать при ожидании на линии</string>
 </resources>
