@@ -187,6 +187,9 @@
     <string name="roaming" msgid="8871412572928323707">"Daten-Roaming"</string>
     <string name="roaming_enable" msgid="7331106985174381987">"Bei Roaming mit Datendienst verbinden"</string>
     <string name="roaming_disable" msgid="1843417228755568110">"Bei Roaming mit Datendienst verbinden"</string>
+    <string name="national_roaming">Nationales Daten-Roaming</string>
+    <string name="national_roaming_enable">Bei nationalem Roaming mit Datendienst verbinden</string>
+    <string name="national_roaming_disable">Bei nationalem Roaming nicht mit Datendienst verbinden</string>
     <string name="roaming_reenable_message" msgid="8913735676127858115">"Die Datenverbindung wurde unterbrochen, weil Sie Ihr privates Netzwerk verlassen haben und Daten-Roaming nicht aktiviert ist."</string>
     <string name="roaming_warning" msgid="7820963598559553967">"Daten-Roaming zulassen? Es können beträchtliche Roaming-Gebühren anfallen!"</string>
     <string name="gsm_umts_options" msgid="6538311689850981686">"GSM-/UMTS-Optionen"</string>
@@ -507,6 +510,11 @@
     <string name="voicemail_settings" msgid="72448049107749316">"Einrichtung"</string>
     <string name="voicemail_number_not_set" msgid="6724904736891087856">"&lt;Nicht festgelegt&gt;"</string>
     <string name="other_settings" msgid="3672912580359716394">"Sonstige Anrufeinstellungen"</string>
+
+    <!-- Dialer UI Settings -->
+    <string name="dialer_ui_settings_title">Wähltasten</string>
+    <string name="dialer_ui_settings_summary">Einstellungen für die Wähltasten</string>
+
     <string name="calling_via_template" msgid="4839419581866928142">"Anruf über <xliff:g id="PROVIDER_NAME">%s</xliff:g>"</string>
     <string name="contactPhoto" msgid="4713193418046639466">"Kontaktbild"</string>
     <string name="goPrivate" msgid="865837794424530980">"privat sprechen"</string>
@@ -629,11 +637,16 @@
     <string name="perm_change_mobile_network_desc">Anwendungen mit dieser Berechtigung können jederzeit zwischen 2G- und 3G-Netz wechseln. 3G ist schneller, verbraucht mehr Batterieladung und kann teurer sein</string>
     <string name="advanced_setting">Erweiterte Einstellungen</string>
     <string name="vibrate_outgoing">Vibriere bei Annahme</string>
-    <string name="vibrate_outgoing_sum">Vibriere, wenn Anruf angenommen wurde</string>
     <string name="vibrate_45">Vibriere alle 45 Sekunden</string>
     <string name="vibrate_45_sum">Vibriere alle 45 Sekunden während ausgehender Anrufe</string>
     <string name="vibrate_hangup">Vibriere bei Auflegen</string>
-    <string name="vibrate_hangup_sum">Vibriere, wenn Anruf beendet wurde</string>
     <string name="vibrate_call_waiting">Vibriere bei Anklopfen</string>
-    <string name="vibrate_call_waiting_sum">Vibriere bei Anklopfen</string>
+
+    <!-- Noise suppression -->
+    <string name="noise_suppression_title">Nebengeräusch-Unterdrückung</string>
+    <string name="noise_suppression_summary">Nebengeräusch-Unterdrückung aktivieren</string>
+
+    <!-- Set Phone Number Settings -->
+    <string name="phone_number_label">Meine Nummer</string>
+    <string name="phone_number_summary">Die Telefonnummer für dieses Gerät einstellen</string>
 </resources>
