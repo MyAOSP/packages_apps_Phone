@@ -475,7 +475,10 @@ public class MobileNetworkSettings extends PreferenceActivity
                         modemNetworkMode == Phone.NT_MODE_LTE_CDMA_EVDO ||
                         modemNetworkMode == Phone.NT_MODE_LTE_CMDA_EVDO_GSM_WCDMA ||
                         modemNetworkMode == Phone.NT_MODE_LTE_GSM_WCDMA ||
-                        modemNetworkMode == Phone.NT_MODE_GLOBAL ) {
+                        //A modem might report world phone sometimes
+                        //but it's not true. Double check here
+                        ((getResources().getBoolean(R.bool.world_phone) == true || isLteOnCdma) &&
+                            modemNetworkMode == Phone.NT_MODE_GLOBAL) ) {
                     if (DBG) {
                         log("handleGetPreferredNetworkTypeResponse: if 1: modemNetworkMode = " +
                                 modemNetworkMode);
